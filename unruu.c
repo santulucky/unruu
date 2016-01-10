@@ -67,7 +67,7 @@ void cleanup(char *tempdir, char *currdir) {
 
 bool extract_rom_zip(char *path) {
     bool result = false;
-    int i;
+    unsigned int i;
     char *filename;
     char output_path[256] = {0};
     
@@ -141,7 +141,7 @@ bool extract_ruu_files(FILE *ruu) {
         char *i;
         length = fread(buffer, 1, CHUNK_SIZE, ruu);
         for(c=0; c < count; c++) {
-            int uf = 0;
+            unsigned int uf = 0;
             ruu_file = *(search+c);
             
             i = memmem(buffer, length, ruu_file, strlen(ruu_file));
@@ -157,7 +157,7 @@ bool extract_ruu_files(FILE *ruu) {
             }
 
             if(i) {
-                int j = 0;
+                unsigned int j = 0;
                 j = uf  == 0 ? RUU_LENGTH_OFFSET : RUU_LENGTH_OFFSET * 2;
                 fseek(ruu, (i-buffer)+j-CHUNK_SIZE, SEEK_CUR);
                 /* Obtain the file length
@@ -184,7 +184,7 @@ bool extract_ruu_files(FILE *ruu) {
                     }
                 }
             
-                int filelength;
+                unsigned int filelength;
                 sscanf(filelen, "%d", &filelength);
                 if(uf) fread(&lenbuf, 1, 1, ruu);
 
