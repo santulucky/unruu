@@ -92,6 +92,17 @@ bool extract_rom_zip(char *path) {
                     result = true;
                 }
             }
+            if(!strncmp(filename, "android-info", 12)) {
+                if(!strncmp(filename + strlen(filename) - 3, "txt", 3)) {
+                    printf("Extracting %s...", filename);
+                    fflush(stdout);
+                    snprintf(output_path, sizeof(output_path), "%s/%s", 
+                             path, filename);
+                    unshield_file_save(unshield, i, output_path);
+                    printf("done.\n");
+                    result = true;
+                }
+            }
         }
     }
 
